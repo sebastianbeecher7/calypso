@@ -23,7 +23,7 @@ PEOPLE = int(os.getenv("PEOPLE", "2"))
 HORIZON_DAYS = int(os.getenv("HORIZON_DAYS", "35"))  # cuantos dias hacia adelante revisar
 CHUNK_DAYS = 7  # la pagina consulta por tramos cortos; hacemos lo mismo
 TZ = ZoneInfo("America/Santiago")
-UNAVAILABLE_TAGS = {"FULL", "NOT_AVAILABLE"}
+UNAVAILABLE_TAGS = {"FULL", "NOT_AVAILABLE", "PAST_DATE", "CLOSED"}
 STATE_FILE = Path("state.json")
 DIAS = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"]
 
