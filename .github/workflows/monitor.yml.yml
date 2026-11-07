@@ -47,5 +47,6 @@ jobs:
             git config user.email "github-actions@users.noreply.github.com"
             git add state.json
             git commit -m "update state"
+            git pull --rebase origin main
             git push
           fi
