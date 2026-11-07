@@ -2,7 +2,7 @@ name: Monitor Trattoria Calypso
 
 on:
   schedule:
-    - cron: "*/19 * * * *"
+    - cron: "13,28,43,58 * * * *"
   workflow_dispatch:
     inputs:
       test:
