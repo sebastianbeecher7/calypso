@@ -135,6 +135,19 @@ def notify(text):
         except requests.RequestException as e:
             # No imprimir e: puede incluir la URL con la apikey (logs publicos).
             print("WhatsApp error:", type(e).__name__)
+    tg_token, tg_chat = os.getenv("TELEGRAM_BOT_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
+    if tg_token and tg_chat:
+        try:
+            r = requests.post(
+                f"https://api.telegram.org/bot{tg_token}/sendMessage",
+                data={"chat_id": tg_chat, "text": text, "disable_web_page_preview": "true"},
+                timeout=20,
+            )
+            print("Telegram status:", r.status_code)
+            ok = ok or r.ok
+        except requests.RequestException as e:
+            # No imprimir e: la URL contiene el token del bot (logs publicos).
+            print("Telegram error:", type(e).__name__)
     topic = os.getenv("NTFY_TOPIC")
     if topic:
         try:
@@ -148,7 +161,7 @@ def notify(text):
             ok = ok or r.ok
         except requests.RequestException as e:
             print("ntfy error:", type(e).__name__)
-    if not (phone and key) and not topic:
+    if not (phone and key) and not (tg_token and tg_chat) and not topic:
         print("No hay ningun canal de aviso configurado (secrets).")
     return ok
 
