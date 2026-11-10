@@ -76,7 +76,8 @@ def norm_time(v):
     if re.fullmatch(r"\d{1,2}:\d{2}(:\d{2})?", v):
         return v[:5]
     try:
-        dt = datetime.fromisoformat(v.replace("Z", "+00:00"))
+        dt = datetime.fromisoformat(v[:-1] if v.endswith("Z") else v)
+
     except ValueError:
         return None
     if dt.tzinfo:
